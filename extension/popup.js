@@ -58,7 +58,7 @@ async function loadSettings() {
 async function checkServerConnection() {
   try {
     const settings = await chrome.storage.local.get(['serverUrl']);
-    const serverUrl = settings.serverUrl || 'http://localhost:5000';
+    const serverUrl = settings.serverUrl || 'https://autoscrappro.replit.dev';
     
     const response = await fetch(`${serverUrl}/api/dashboard/stats`, {
       method: 'GET',

@@ -1,7 +1,7 @@
 // AutoScrapePro Background Service Worker
 
 let scrapingSession = null;
-let serverUrl = 'http://localhost:5000'; // Default server URL
+let serverUrl = 'https://autoscrappro.replit.dev'; // Default server URL
 
 // Initialize extension
 chrome.runtime.onInstalled.addListener(() => {
@@ -14,7 +14,7 @@ chrome.runtime.onInstalled.addListener(() => {
     lazyLoadImages: true,
     scrapingDelay: 2000,
     maxRetries: 3,
-    serverUrl: serverUrl
+    serverUrl: 'https://autoscrappro.replit.dev'
   });
 });
 
