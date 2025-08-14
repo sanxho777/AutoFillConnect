@@ -18,7 +18,9 @@ chrome.runtime.onInstalled.addListener(() => {
   });
   
   // Try to detect the correct server URL
-  detectServerUrl();
+  setTimeout(() => {
+    detectServerUrl();
+  }, 2000);
 });
 
 // Handle messages from content scripts and popup

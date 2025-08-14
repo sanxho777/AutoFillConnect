@@ -10,6 +10,7 @@ import ExtensionSettings from "@/components/dashboard/extension-settings";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "wouter";
 import { Plus, Puzzle } from "lucide-react";
 
 export default function Dashboard() {
@@ -74,27 +75,27 @@ export default function Dashboard() {
                 >
                   Dashboard
                 </a>
-                <a
-                  href="#"
+                <Link
+                  href="/vehicles"
                   className="text-material-grey-600 dark:text-gray-400 hover:text-material-blue-700 dark:hover:text-material-blue-500 font-medium pb-2"
                   data-testid="nav-vehicles"
                 >
                   Vehicles
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/facebook-integration"
                   className="text-material-grey-600 dark:text-gray-400 hover:text-material-blue-700 dark:hover:text-material-blue-500 font-medium pb-2"
                   data-testid="nav-facebook"
                 >
                   Facebook Integration
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/settings"
                   className="text-material-grey-600 dark:text-gray-400 hover:text-material-blue-700 dark:hover:text-material-blue-500 font-medium pb-2"
                   data-testid="nav-settings"
                 >
                   Settings
-                </a>
+                </Link>
               </nav>
             </div>
             <div className="flex items-center space-x-4">
