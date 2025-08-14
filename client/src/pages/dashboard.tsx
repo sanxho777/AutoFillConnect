@@ -7,6 +7,7 @@ import VehicleDetailsModal from "@/components/dashboard/vehicle-details-modal";
 import FacebookIntegration from "@/components/dashboard/facebook-integration";
 import ActivityFeed from "@/components/dashboard/activity-feed";
 import ExtensionSettings from "@/components/dashboard/extension-settings";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Puzzle } from "lucide-react";
@@ -54,42 +55,42 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-material-grey-50">
+    <div className="min-h-screen bg-material-grey-50 dark:bg-gray-950">
       {/* Header */}
-      <header className="bg-white shadow-md border-b border-gray-200 sticky top-0 z-50">
+      <header className="bg-white dark:bg-gray-900 shadow-md border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <div className="flex-shrink-0">
-                <h1 className="text-2xl font-bold text-material-blue-700" data-testid="app-title">
+                <h1 className="text-2xl font-bold text-material-blue-700 dark:text-material-blue-500" data-testid="app-title">
                   AutoScrapePro
                 </h1>
               </div>
               <nav className="hidden md:flex space-x-8">
                 <a
                   href="#"
-                  className="text-material-blue-700 font-medium border-b-2 border-material-blue-700 pb-2"
+                  className="text-material-blue-700 dark:text-material-blue-500 font-medium border-b-2 border-material-blue-700 dark:border-material-blue-500 pb-2"
                   data-testid="nav-dashboard"
                 >
                   Dashboard
                 </a>
                 <a
                   href="#"
-                  className="text-material-grey-600 hover:text-material-blue-700 font-medium pb-2"
+                  className="text-material-grey-600 dark:text-gray-400 hover:text-material-blue-700 dark:hover:text-material-blue-500 font-medium pb-2"
                   data-testid="nav-vehicles"
                 >
                   Vehicles
                 </a>
                 <a
                   href="#"
-                  className="text-material-grey-600 hover:text-material-blue-700 font-medium pb-2"
+                  className="text-material-grey-600 dark:text-gray-400 hover:text-material-blue-700 dark:hover:text-material-blue-500 font-medium pb-2"
                   data-testid="nav-facebook"
                 >
                   Facebook Integration
                 </a>
                 <a
                   href="#"
-                  className="text-material-grey-600 hover:text-material-blue-700 font-medium pb-2"
+                  className="text-material-grey-600 dark:text-gray-400 hover:text-material-blue-700 dark:hover:text-material-blue-500 font-medium pb-2"
                   data-testid="nav-settings"
                 >
                   Settings
@@ -109,6 +110,7 @@ export default function Dashboard() {
                 <Puzzle className="w-4 h-4 mr-2" />
                 {extensionStatus?.connected ? "Extension Connected" : "Extension Disconnected"}
               </Badge>
+              <ThemeToggle />
               <Button
                 onClick={handleNewScrape}
                 className="bg-material-blue-700 hover:bg-material-blue-600"

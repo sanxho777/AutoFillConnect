@@ -35,9 +35,9 @@ export default function FacebookIntegration() {
   };
 
   return (
-    <Card className="shadow-material" data-testid="facebook-integration">
+    <Card className="shadow-material dark:bg-gray-800 dark:border-gray-700" data-testid="facebook-integration">
       <CardHeader>
-        <CardTitle className="text-lg">Facebook Integration</CardTitle>
+        <CardTitle className="text-lg dark:text-gray-100">Facebook Integration</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">

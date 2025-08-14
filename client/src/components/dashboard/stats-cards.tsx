@@ -70,15 +70,15 @@ export default function StatsCards() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {statsData.map((stat) => (
-        <Card key={stat.title} className="shadow-material">
+        <Card key={stat.title} className="shadow-material dark:bg-gray-800 dark:border-gray-700">
           <CardContent className="p-6">
             <div className="flex items-center">
               <div className={`p-3 rounded-full ${stat.bgColor}`}>
                 <stat.icon className={`${stat.iconColor} text-xl w-6 h-6`} />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-material-grey-600">{stat.title}</p>
-                <p className="text-2xl font-bold text-gray-900" data-testid={stat.testId}>
+                <p className="text-sm font-medium text-material-grey-600 dark:text-gray-400">{stat.title}</p>
+                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100" data-testid={stat.testId}>
                   {stat.value.toLocaleString()}
                 </p>
               </div>

@@ -86,10 +86,10 @@ export default function VehicleTable({ onVehicleSelect }: VehicleTableProps) {
   const pagination = vehicleData?.pagination || { page: 1, pages: 1, total: 0 };
 
   return (
-    <Card className="shadow-material">
-      <CardHeader className="p-6 border-b border-gray-200">
+    <Card className="shadow-material dark:bg-gray-800 dark:border-gray-700">
+      <CardHeader className="p-6 border-b border-gray-200 dark:border-gray-700">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">Recent Vehicle Data</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Recent Vehicle Data</h2>
           <div className="mt-4 sm:mt-0 flex space-x-3">
             <Select value={sourceFilter} onValueChange={setSourceFilter}>
               <SelectTrigger className="w-48" data-testid="source-filter">

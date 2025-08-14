@@ -54,13 +54,13 @@ export default function ExtensionSettings() {
   }
 
   return (
-    <Card className="shadow-material" data-testid="extension-settings">
+    <Card className="shadow-material dark:bg-gray-800 dark:border-gray-700" data-testid="extension-settings">
       <CardHeader>
-        <CardTitle className="text-lg">Extension Settings</CardTitle>
+        <CardTitle className="text-lg dark:text-gray-100">Extension Settings</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-material-grey-600">Auto-extract VIN</span>
+          <span className="text-sm text-material-grey-600 dark:text-gray-400">Auto-extract VIN</span>
           <Switch
             checked={settings?.autoExtractVin ?? true}
             onCheckedChange={(checked) => handleToggleSetting("autoExtractVin", checked)}
@@ -69,7 +69,7 @@ export default function ExtensionSettings() {
         </div>
 
         <div className="flex items-center justify-between">
-          <span className="text-sm text-material-grey-600">Auto-post to Facebook</span>
+          <span className="text-sm text-material-grey-600 dark:text-gray-400">Auto-post to Facebook</span>
           <Switch
             checked={settings?.autoPostFacebook ?? false}
             onCheckedChange={(checked) => handleToggleSetting("autoPostFacebook", checked)}
@@ -78,7 +78,7 @@ export default function ExtensionSettings() {
         </div>
 
         <div className="flex items-center justify-between">
-          <span className="text-sm text-material-grey-600">Lazy-load images</span>
+          <span className="text-sm text-material-grey-600 dark:text-gray-400">Lazy-load images</span>
           <Switch
             checked={settings?.lazyLoadImages ?? true}
             onCheckedChange={(checked) => handleToggleSetting("lazyLoadImages", checked)}

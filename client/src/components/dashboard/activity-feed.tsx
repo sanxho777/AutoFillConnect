@@ -74,9 +74,9 @@ export default function ActivityFeed() {
   }
 
   return (
-    <Card className="shadow-material" data-testid="activity-feed">
+    <Card className="shadow-material dark:bg-gray-800 dark:border-gray-700" data-testid="activity-feed">
       <CardHeader>
-        <CardTitle className="text-lg">Recent Activity</CardTitle>
+        <CardTitle className="text-lg dark:text-gray-100">Recent Activity</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {activities && activities.length > 0 ? (
@@ -88,10 +88,10 @@ export default function ActivityFeed() {
                 </div>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-gray-900" data-testid={`activity-description-${activity.id}`}>
+                <p className="text-sm text-gray-900 dark:text-gray-100" data-testid={`activity-description-${activity.id}`}>
                   {activity.description}
                 </p>
-                <p className="text-xs text-material-grey-600" data-testid={`activity-time-${activity.id}`}>
+                <p className="text-xs text-material-grey-600 dark:text-gray-400" data-testid={`activity-time-${activity.id}`}>
                   {formatTimeAgo(activity.createdAt)}
                 </p>
               </div>
@@ -99,7 +99,7 @@ export default function ActivityFeed() {
           ))
         ) : (
           <div className="text-center py-8">
-            <p className="text-material-grey-600 text-sm">No recent activity</p>
+            <p className="text-material-grey-600 dark:text-gray-400 text-sm">No recent activity</p>
           </div>
         )}
 
