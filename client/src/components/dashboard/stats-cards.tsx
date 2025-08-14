@@ -3,7 +3,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Car, CheckCircle, Facebook, AlertTriangle } from "lucide-react";
 
 export default function StatsCards() {
-  const { data: stats, isLoading } = useQuery({
+  const { data: stats, isLoading } = useQuery<{
+    totalVehicles: number;
+    successfulScrapes: number;
+    facebookPosts: number;
+    failedExtractions: number;
+  }>({
     queryKey: ["/api/dashboard/stats"],
   });
 

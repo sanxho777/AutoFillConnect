@@ -14,19 +14,43 @@ import { Plus, Puzzle } from "lucide-react";
 export default function Dashboard() {
   const [selectedVehicleId, setSelectedVehicleId] = useState<string | null>(null);
 
-  const { data: extensionStatus } = useQuery({
+  const { data: extensionStatus } = useQuery<{ connected: boolean }>({
     queryKey: ["/api/extension/status"],
     refetchInterval: 5000,
   });
 
-  const { data: activeSession } = useQuery({
+  const { data: activeSession } = useQuery<{
+    id: string;
+    status: string;
+    currentSite?: string;
+    progress?: number;
+    totalItems?: number;
+    completedItems?: number;
+    currentAction?: string;
+  }>({
     queryKey: ["/api/scraping/active"],
     refetchInterval: 2000,
   });
 
-  const handleNewScrape = () => {
-    // In a real implementation, this would communicate with the Chrome extension
-    console.log("Starting new scrape session...");
+  const handleNewScrape = async () => {
+    try {
+      console.log("Starting new scrape session...");
+      // Start a new scraping session
+      const response = await fetch('/api/scraping/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          currentSite: window.location.hostname,
+          totalItems: 0,
+          status: 'active'
+        })
+      });
+      if (response.ok) {
+        window.location.reload(); // Refresh to show new session
+      }
+    } catch (error) {
+      console.error("Failed to start scrape session:", error);
+    }
   };
 
   return (
@@ -106,7 +130,7 @@ export default function Dashboard() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Active Scraping Progress */}
-            {activeSession && <ScrapingProgress session={activeSession} />}
+            {activeSession && activeSession.status && <ScrapingProgress session={activeSession} />}
 
             {/* Vehicle Table */}
             <VehicleTable onVehicleSelect={setSelectedVehicleId} />

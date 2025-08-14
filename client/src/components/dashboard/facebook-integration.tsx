@@ -5,7 +5,10 @@ import { Badge } from "@/components/ui/badge";
 import { Facebook, Wand2 } from "lucide-react";
 
 export default function FacebookIntegration() {
-  const { data: facebookStatus } = useQuery({
+  const { data: facebookStatus } = useQuery<{
+    isConnected: boolean;
+    userName?: string;
+  }>({
     queryKey: ["/api/facebook/status"],
   });
 
@@ -13,9 +16,22 @@ export default function FacebookIntegration() {
     window.open("https://www.facebook.com/marketplace", "_blank");
   };
 
-  const handleGenerateDescription = () => {
-    // In a real implementation, this would generate a description for the selected vehicle
-    console.log("Generating Facebook description...");
+  const handleGenerateDescription = async () => {
+    try {
+      console.log("Generating Facebook description...");
+      const response = await fetch('/api/facebook/generate-description', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ vehicleId: 'sample-id' })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        alert(`Generated description: ${data.description.substring(0, 100)}...`);
+      }
+    } catch (error) {
+      console.error("Failed to generate description:", error);
+      alert("Failed to generate description. Please try again.");
+    }
   };
 
   return (

@@ -19,7 +19,10 @@ export default function VehicleTable({ onVehicleSelect }: VehicleTableProps) {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  const { data: vehicleData, isLoading } = useQuery({
+  const { data: vehicleData, isLoading } = useQuery<{
+    vehicles: any[];
+    pagination: { page: number; pages: number; total: number };
+  }>({
     queryKey: ["/api/vehicles", { page: currentPage, source: sourceFilter === "all" ? undefined : sourceFilter }],
   });
 
@@ -101,6 +104,7 @@ export default function VehicleTable({ onVehicleSelect }: VehicleTableProps) {
               </SelectContent>
             </Select>
             <Button
+              onClick={() => window.open("https://www.facebook.com/marketplace/create/vehicle", "_blank")}
               className="bg-material-green-500 hover:bg-material-green-400"
               data-testid="button-quick-post"
             >

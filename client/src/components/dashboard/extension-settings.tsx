@@ -10,7 +10,11 @@ export default function ExtensionSettings() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  const { data: settings, isLoading } = useQuery({
+  const { data: settings, isLoading } = useQuery<{
+    autoExtractVin: boolean;
+    autoPostFacebook: boolean;
+    lazyLoadImages: boolean;
+  }>({
     queryKey: ["/api/extension/settings"],
   });
 
@@ -28,8 +32,7 @@ export default function ExtensionSettings() {
   };
 
   const handleOpenAdvancedSettings = () => {
-    // In a real implementation, this would open the extension's options page
-    console.log("Opening advanced settings...");
+    alert("Advanced settings would open the Chrome extension options page. Make sure the AutoScrapePro extension is installed!");
   };
 
   if (isLoading) {
