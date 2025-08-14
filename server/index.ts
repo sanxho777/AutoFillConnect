@@ -61,8 +61,9 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
-  // Use localhost for local development, 0.0.0.0 for Replit/production
-  const host = process.env.REPLIT || process.env.REPLIT_DEPLOYMENT_TYPE ? "0.0.0.0" : "localhost";
+  // Use 127.0.0.1 (IPv4) for local development to avoid Windows IPv6 issues
+  // Use 0.0.0.0 for Replit/production
+  const host = process.env.REPLIT || process.env.REPLIT_DEPLOYMENT_TYPE ? "0.0.0.0" : "127.0.0.1";
   
   server.listen({
     port,

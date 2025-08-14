@@ -17,7 +17,7 @@ Preferred communication style: Simple, everyday language.
 - Implemented localStorage persistence and system theme detection
 - Updated all dashboard components with dark mode styling
 - Theme toggle appears in dashboard header with sun/moon icons
-- Fixed Windows compatibility issue with server host binding (localhost vs 0.0.0.0)
+- Fixed Windows compatibility issue with server host binding (using 127.0.0.1 for Windows to avoid IPv6 socket errors)
 
 ## System Architecture
 
