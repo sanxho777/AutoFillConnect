@@ -10,6 +10,15 @@ The platform consists of three main components: a Chrome extension that performs
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes
+
+### Dark Mode Implementation (August 2025)
+- Added complete dark mode toggle feature with theme provider
+- Implemented localStorage persistence and system theme detection
+- Updated all dashboard components with dark mode styling
+- Theme toggle appears in dashboard header with sun/moon icons
+- Fixed Windows compatibility issue with server host binding (localhost vs 0.0.0.0)
+
 ## System Architecture
 
 ### Frontend Architecture
