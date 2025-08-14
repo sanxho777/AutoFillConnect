@@ -263,6 +263,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Extension status endpoint  
+  app.get("/api/extension/status", async (req, res) => {
+    try {
+      // Check if extension has connected recently (within last minute)
+      const lastExtensionPing = await storage.getLastExtensionPing();
+      const isConnected = lastExtensionPing && 
+        (Date.now() - new Date(lastExtensionPing).getTime()) < 60000; // 1 minute
+      
+      res.json({ connected: !!isConnected });
+    } catch (error) {
+      console.error("Failed to get extension status:", error);
+      res.json({ connected: false });
+    }
+  });
+
+  // Extension ping endpoint (called by extension to indicate it's active)
+  app.post("/api/extension/ping", async (req, res) => {
+    try {
+      await storage.updateExtensionPing();
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Extension ping failed:", error);
+      res.status(500).json({ message: "Extension ping failed" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

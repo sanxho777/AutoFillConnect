@@ -1,7 +1,7 @@
 // AutoScrapePro Background Service Worker
 
 let scrapingSession = null;
-let serverUrl = 'https://autoscrappro.replit.dev'; // Default server URL
+let serverUrl = 'http://127.0.0.1:5000'; // Default to local development server
 
 // Initialize extension
 chrome.runtime.onInstalled.addListener(() => {
@@ -14,8 +14,11 @@ chrome.runtime.onInstalled.addListener(() => {
     lazyLoadImages: true,
     scrapingDelay: 2000,
     maxRetries: 3,
-    serverUrl: 'https://autoscrappro.replit.dev'
+    serverUrl: 'http://127.0.0.1:5000'
   });
+  
+  // Try to detect the correct server URL
+  detectServerUrl();
 });
 
 // Handle messages from content scripts and popup
@@ -191,8 +194,62 @@ async function checkServerConnection() {
   }
 }
 
-// Periodic server connectivity check
+// Send ping to server to indicate extension is active
+async function pingServer() {
+  try {
+    await fetch(`${serverUrl}/api/extension/ping`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (error) {
+    console.error('Extension ping failed:', error);
+  }
+}
+
+// Auto-detect server URL function
+async function detectServerUrl() {
+  const possibleUrls = [
+    'http://127.0.0.1:5000',
+    'http://localhost:5000',
+    'https://autoscrappro.replit.dev'
+  ];
+  
+  for (const url of possibleUrls) {
+    try {
+      const response = await fetch(`${url}/api/dashboard/stats`, {
+        method: 'GET',
+        signal: AbortSignal.timeout(3000) // 3 second timeout
+      });
+      
+      if (response.ok) {
+        serverUrl = url;
+        chrome.storage.local.set({ serverUrl: url });
+        console.log(`AutoScrapePro: Connected to server at ${url}`);
+        return;
+      }
+    } catch (error) {
+      // Continue to next URL
+    }
+  }
+  
+  console.log('AutoScrapePro: No server found, using default URL');
+}
+
+// Periodic server connectivity check and ping
 setInterval(async () => {
   const isConnected = await checkServerConnection();
   chrome.storage.local.set({ serverConnected: isConnected });
-}, 30000); // Check every 30 seconds
+  
+  if (isConnected) {
+    // Send ping to indicate extension is active
+    await pingServer();
+  } else {
+    // If not connected, try to re-detect server URL
+    await detectServerUrl();
+  }
+}, 15000); // Check every 15 seconds
+
+// Initial ping on startup
+setTimeout(async () => {
+  await pingServer();
+}, 1000);

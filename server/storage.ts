@@ -60,6 +60,8 @@ export interface IStorage {
   // Extension Settings
   getExtensionSettings(): Promise<ExtensionSettings | undefined>;
   updateExtensionSettings(settings: Partial<InsertExtensionSettings>): Promise<ExtensionSettings>;
+  getLastExtensionPing(): Promise<string | null>;
+  updateExtensionPing(): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -314,6 +316,17 @@ export class DatabaseStorage implements IStorage {
         .returning();
       return newSettings;
     }
+  }
+
+  // Simple in-memory ping tracking for now
+  private lastExtensionPing: string | null = null;
+
+  async getLastExtensionPing(): Promise<string | null> {
+    return this.lastExtensionPing;
+  }
+
+  async updateExtensionPing(): Promise<void> {
+    this.lastExtensionPing = new Date().toISOString();
   }
 }
 

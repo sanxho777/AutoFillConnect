@@ -17,7 +17,13 @@ Preferred communication style: Simple, everyday language.
 - Implemented localStorage persistence and system theme detection
 - Updated all dashboard components with dark mode styling
 - Theme toggle appears in dashboard header with sun/moon icons
-- Fixed Windows compatibility issue by using different server listen methods (standard Express listen for Windows, advanced options for Replit)
+
+### Windows Compatibility & Extension Communication (August 2025)
+- Fixed Windows server compatibility with platform-specific server binding (standard Express listen for Windows, advanced options for Replit)
+- Implemented automatic server URL detection in Chrome extension (tries localhost, 127.0.0.1, then Replit URLs)
+- Added extension ping/status system for real-time connection tracking between extension and web application
+- Added CORS headers for proper Chrome extension communication with local development server
+- Updated extension to default to local development server URL (http://127.0.0.1:5000) instead of production Replit URL
 
 ## System Architecture
 

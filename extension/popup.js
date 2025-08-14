@@ -58,11 +58,12 @@ async function loadSettings() {
 async function checkServerConnection() {
   try {
     const settings = await chrome.storage.local.get(['serverUrl']);
-    const serverUrl = settings.serverUrl || 'https://autoscrappro.replit.dev';
+    const serverUrl = settings.serverUrl || 'http://127.0.0.1:5000';
     
     const response = await fetch(`${serverUrl}/api/dashboard/stats`, {
       method: 'GET',
-      mode: 'cors'
+      mode: 'cors',
+      signal: AbortSignal.timeout(5000) // 5 second timeout
     });
     
     serverConnected = response.ok;
@@ -297,4 +298,19 @@ function showMessage(message, type) {
 async function updateStatus() {
   await checkServerConnection();
   await checkScrapingStatus();
+  
+  // Send ping to server to indicate extension is active
+  if (serverConnected) {
+    try {
+      const settings = await chrome.storage.local.get(['serverUrl']);
+      const serverUrl = settings.serverUrl || 'http://127.0.0.1:5000';
+      
+      await fetch(`${serverUrl}/api/extension/ping`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch (error) {
+      // Ignore ping errors
+    }
+  }
 }
