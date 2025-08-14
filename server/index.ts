@@ -61,15 +61,21 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
-  // Use 127.0.0.1 (IPv4) for local development to avoid Windows IPv6 issues
-  // Use 0.0.0.0 for Replit/production
-  const host = process.env.REPLIT || process.env.REPLIT_DEPLOYMENT_TYPE ? "0.0.0.0" : "127.0.0.1";
   
-  server.listen({
-    port,
-    host,
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
-  });
+  // For Windows compatibility, use standard listen without reusePort
+  if (process.platform === 'win32' || !process.env.REPLIT) {
+    // Windows/local development - use standard Express listen
+    server.listen(port, '127.0.0.1', () => {
+      log(`serving on port ${port} (Windows/local mode)`);
+    });
+  } else {
+    // Replit/Linux production - use advanced options
+    server.listen({
+      port,
+      host: "0.0.0.0",
+      reusePort: true,
+    }, () => {
+      log(`serving on port ${port} (Replit/production mode)`);
+    });
+  }
 })();
