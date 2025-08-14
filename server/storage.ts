@@ -94,7 +94,7 @@ export class DatabaseStorage implements IStorage {
     if (status) conditions.push(eq(vehicles.status, status));
     
     if (conditions.length > 0) {
-      query = query.where(and(...conditions));
+      query = query.where(and(...conditions)) as typeof query;
     }
 
     const result = await query
@@ -115,7 +115,7 @@ export class DatabaseStorage implements IStorage {
     if (status) conditions.push(eq(vehicles.status, status));
     
     if (conditions.length > 0) {
-      query = query.where(and(...conditions));
+      query = query.where(and(...conditions)) as typeof query;
     }
 
     const [{ count: total }] = await query;
@@ -153,7 +153,7 @@ export class DatabaseStorage implements IStorage {
 
   async deleteVehicle(id: string): Promise<boolean> {
     const result = await db.delete(vehicles).where(eq(vehicles.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount || 0) > 0;
   }
 
   // Scraping Sessions
