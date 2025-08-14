@@ -13,12 +13,16 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Vehicles() {
   const [page, setPage] = useState(1);
-  const [source, setSource] = useState<string>("");
-  const [status, setStatus] = useState<string>("");
+  const [source, setSource] = useState<string>("all");
+  const [status, setStatus] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
 
   const { data: vehiclesData, isLoading } = useQuery({
-    queryKey: ["/api/vehicles", { page, source, status }],
+    queryKey: ["/api/vehicles", { 
+      page, 
+      source: source === "all" ? undefined : source, 
+      status: status === "all" ? undefined : status 
+    }],
     enabled: true,
   });
 
@@ -112,7 +116,7 @@ export default function Vehicles() {
                   <SelectValue placeholder="All Sources" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Sources</SelectItem>
+                  <SelectItem value="all">All Sources</SelectItem>
                   <SelectItem value="autotrader.com">AutoTrader</SelectItem>
                   <SelectItem value="cars.com">Cars.com</SelectItem>
                   <SelectItem value="cargurus.com">CarGurus</SelectItem>
@@ -124,7 +128,7 @@ export default function Vehicles() {
                   <SelectValue placeholder="All Statuses" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Statuses</SelectItem>
+                  <SelectItem value="all">All Statuses</SelectItem>
                   <SelectItem value="active">Active</SelectItem>
                   <SelectItem value="sold">Sold</SelectItem>
                   <SelectItem value="pending">Pending</SelectItem>
